@@ -4,13 +4,14 @@
     <title>TO-DO-LIST</title>
     <style>
         body {
+            /*화면 가운데 정렬*/
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
         ul {
-            text-align: left;
+            text-align: left;  /*리스트 왼쪽 정렬*/
         }
     </style>
 </head>
@@ -23,6 +24,7 @@
         <ul>
             {% for task in tasks %}
             <li id="{{ task.id }}">
+                <!--체크박스: checked 속성으로 수행여부 표시-->
                 <input type="checkbox" name="task" id="checkbox_{{ task.id }}" {% if task.completed %} checked {% endif %}>
                 <label for="checkbox_{{ task.id }}">{{ task.title }}</label>
                 <!-- 할일 삭제 버튼 -->
@@ -30,9 +32,10 @@
             </li>
             {% endfor %}
         </ul>
+        <!--할일 추가-->
         <form action="{% url 'add_task' %}" method="post">
             {% csrf_token %}
-            <input type="text" name="title">
+            <input type="text" name="title">   <!--입력상자-->>
             <button type="submit">Add Task</button>
         </form>
     </div>
@@ -51,7 +54,7 @@
             fetch('/delete/' + taskId, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', 
                     'X-CSRFToken': '{{ csrf_token }}'
                 }
             })
